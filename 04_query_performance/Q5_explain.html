@@ -1,0 +1,640 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html><head><meta http-equiv="Content-Type" content="text&#47;html;charset=UTF-8"><title>blazegraph&trade; by SYSTAP</title
+></head
+><body<h1>Query</h1
+><h2>SPARQL</h2
+><pre>SELECT ?human ?humanLabel ?spouse ?spouseLabel WHERE {
+  ?human wdt:P31 wd:Q5 .
+  ?human wdt:P39 wd:Q11696 .
+
+  OPTIONAL {
+    ?spouse wdt:P26 ?human .
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language &#34;en&#34; }
+}
+LIMIT 20
+</pre
+><h2>Parse Tree</h2
+><pre>QueryContainer
+ SelectQuery
+  Select
+   ProjectionElem
+    Var (human)
+   ProjectionElem
+    Var (humanLabel)
+   ProjectionElem
+    Var (spouse)
+   ProjectionElem
+    Var (spouseLabel)
+  WhereClause
+   GraphPatternGroup
+    BasicGraphPattern
+     TriplesSameSubjectPath
+      Var (human)
+      PropertyListPath
+       PathAlternative
+        PathSequence
+         PathElt
+          IRI (http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P31)
+       ObjectList
+        IRI (http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q5)
+     TriplesSameSubjectPath
+      Var (human)
+      PropertyListPath
+       PathAlternative
+        PathSequence
+         PathElt
+          IRI (http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P39)
+       ObjectList
+        IRI (http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q11696)
+    OptionalGraphPattern
+     BasicGraphPattern
+      TriplesSameSubjectPath
+       Var (spouse)
+       PropertyListPath
+        PathAlternative
+         PathSequence
+          PathElt
+           IRI (http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P26)
+        ObjectList
+         Var (human)
+    ServiceGraphPattern
+     IRI (http:&#47;&#47;wikiba.se&#47;ontology#label)
+     GraphPatternGroup
+      BasicGraphPattern
+       TriplesSameSubjectPath
+        IRI (http:&#47;&#47;www.bigdata.com&#47;rdf#serviceParam)
+        PropertyListPath
+         PathAlternative
+          PathSequence
+           PathElt
+            IRI (http:&#47;&#47;wikiba.se&#47;ontology#language)
+         ObjectList
+          RDFLiteral
+           String (en)
+  Limit (20)</pre
+><h2>Original AST</h2
+><pre>
+PREFIX rdf: &lt;http:&#47;&#47;www.w3.org&#47;1999&#47;02&#47;22-rdf-syntax-ns#&gt;
+PREFIX rdfs: &lt;http:&#47;&#47;www.w3.org&#47;2000&#47;01&#47;rdf-schema#&gt;
+PREFIX sesame: &lt;http:&#47;&#47;www.openrdf.org&#47;schema&#47;sesame#&gt;
+PREFIX owl: &lt;http:&#47;&#47;www.w3.org&#47;2002&#47;07&#47;owl#&gt;
+PREFIX xsd: &lt;http:&#47;&#47;www.w3.org&#47;2001&#47;XMLSchema#&gt;
+PREFIX fn: &lt;http:&#47;&#47;www.w3.org&#47;2005&#47;xpath-functions#&gt;
+PREFIX foaf: &lt;http:&#47;&#47;xmlns.com&#47;foaf&#47;0.1&#47;&gt;
+PREFIX dc: &lt;http:&#47;&#47;purl.org&#47;dc&#47;elements&#47;1.1&#47;&gt;
+PREFIX hint: &lt;http:&#47;&#47;www.bigdata.com&#47;queryHints#&gt;
+PREFIX bd: &lt;http:&#47;&#47;www.bigdata.com&#47;rdf#&gt;
+PREFIX bds: &lt;http:&#47;&#47;www.bigdata.com&#47;rdf&#47;search#&gt;
+PREFIX psn: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;statement&#47;value-normalized&#47;&gt;
+PREFIX pqn: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;qualifier&#47;value-normalized&#47;&gt;
+PREFIX prn: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;reference&#47;value-normalized&#47;&gt;
+PREFIX mwapi: &lt;https:&#47;&#47;www.mediawiki.org&#47;ontology#API&#47;&gt;
+PREFIX gas: &lt;http:&#47;&#47;www.bigdata.com&#47;rdf&#47;gas#&gt;
+PREFIX wdt: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;&gt;
+PREFIX wdtn: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct-normalized&#47;&gt;
+PREFIX psv: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;statement&#47;value&#47;&gt;
+PREFIX ps: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;statement&#47;&gt;
+PREFIX pqv: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;qualifier&#47;value&#47;&gt;
+PREFIX pq: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;qualifier&#47;&gt;
+PREFIX prv: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;reference&#47;value&#47;&gt;
+PREFIX pr: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;reference&#47;&gt;
+PREFIX wdno: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;novalue&#47;&gt;
+PREFIX p: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;&gt;
+PREFIX wikibase: &lt;http:&#47;&#47;wikiba.se&#47;ontology#&gt;
+PREFIX wd: &lt;http:&#47;&#47;www.wikidata.org&#47;entity&#47;&gt;
+PREFIX wdata: &lt;http:&#47;&#47;www.wikidata.org&#47;wiki&#47;Special:EntityData&#47;&gt;
+PREFIX wds: &lt;http:&#47;&#47;www.wikidata.org&#47;entity&#47;statement&#47;&gt;
+PREFIX wdv: &lt;http:&#47;&#47;www.wikidata.org&#47;value&#47;&gt;
+PREFIX wdref: &lt;http:&#47;&#47;www.wikidata.org&#47;reference&#47;&gt;
+PREFIX schema: &lt;http:&#47;&#47;schema.org&#47;&gt;
+PREFIX prov: &lt;http:&#47;&#47;www.w3.org&#47;ns&#47;prov#&gt;
+PREFIX skos: &lt;http:&#47;&#47;www.w3.org&#47;2004&#47;02&#47;skos&#47;core#&gt;
+PREFIX geo: &lt;http:&#47;&#47;www.opengis.net&#47;ont&#47;geosparql#&gt;
+PREFIX geof: &lt;http:&#47;&#47;www.opengis.net&#47;def&#47;geosparql&#47;function&#47;&gt;
+PREFIX mediawiki: &lt;https:&#47;&#47;www.mediawiki.org&#47;ontology#&gt;
+PREFIX ontolex: &lt;http:&#47;&#47;www.w3.org&#47;ns&#47;lemon&#47;ontolex#&gt;
+PREFIX dct: &lt;http:&#47;&#47;purl.org&#47;dc&#47;terms&#47;&gt;
+QueryType: SELECT
+includeInferred=true
+timeout=60000
+SELECT VarNode(human) VarNode(humanLabel) VarNode(spouse) VarNode(spouseLabel)
+  JoinGroupNode {
+    StatementPatternNode(VarNode(human), ConstantNode(Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(31)), ConstantNode(Vocab(2)[http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q]:XSDUnsignedByte(5))) [scope=DEFAULT_CONTEXTS]
+    StatementPatternNode(VarNode(human), ConstantNode(Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(39)), ConstantNode(Vocab(2)[http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q]:XSDUnsignedShort(11696))) [scope=DEFAULT_CONTEXTS]
+    JoinGroupNode [optional] {
+      StatementPatternNode(VarNode(spouse), ConstantNode(Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(26)), VarNode(human)) [scope=DEFAULT_CONTEXTS]
+    }
+    SERVICE &lt;ConstantNode(TermId(0U)[http:&#47;&#47;wikiba.se&#47;ontology#label])&gt; {
+      JoinGroupNode {
+        StatementPatternNode(ConstantNode(TermId(0U)[http:&#47;&#47;www.bigdata.com&#47;rdf#serviceParam]), ConstantNode(TermId(0U)[http:&#47;&#47;wikiba.se&#47;ontology#language]), ConstantNode(TermId(17067L)[en])) [scope=DEFAULT_CONTEXTS]
+      }
+    }
+  }
+slice(limit=20)</pre
+><h2>Static Analysis Statistics</h2
+><table><tr><th>object</th
+><th>category</th
+><th>elapsed [ms]</th
+><th>elapsed [us]</th
+><th>numCalls</th
+></tr
+><tr><td>ParseTime</td
+><td>Parser</td
+><td>0</td
+><td>946</td
+><td>1</td
+></tr
+><tr><td>ResolveValues</td
+><td>Resolve Values</td
+><td>0</td
+><td>589</td
+><td>1</td
+></tr
+><tr><td>Optimizers</td
+><td>Optimizers (all)</td
+><td>2</td
+><td>2397</td
+><td>1</td
+></tr
+><tr><td>ASTOrderByAggregateFlatteningOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>6</td
+><td>1</td
+></tr
+><tr><td>ASTQueryHintOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>452</td
+><td>1</td
+></tr
+><tr><td>ASTFilterNormalizationOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>5</td
+><td>1</td
+></tr
+><tr><td>ASTStaticBindingsOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>47</td
+><td>1</td
+></tr
+><tr><td>ASTSearchInSearchOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>3</td
+><td>1</td
+></tr
+><tr><td>ASTPropertyPathOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>3</td
+><td>1</td
+></tr
+><tr><td>ASTSetValueExpressionsOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>236</td
+><td>1</td
+></tr
+><tr><td>ASTFlattenUnionsOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>3</td
+><td>1</td
+></tr
+><tr><td>ASTUnionFiltersOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>2</td
+><td>1</td
+></tr
+><tr><td>ASTEmptyGroupOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>3</td
+><td>1</td
+></tr
+><tr><td>ASTWildcardProjectionOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>83</td
+><td>1</td
+></tr
+><tr><td>ASTSearchOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>5</td
+><td>1</td
+></tr
+><tr><td>ASTFulltextSearchOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>2</td
+><td>1</td
+></tr
+><tr><td>ASTGeoSpatialSearchOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>2</td
+><td>1</td
+></tr
+><tr><td>AskOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>1</td
+><td>1</td
+></tr
+><tr><td>ASTDescribeOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>2</td
+><td>1</td
+></tr
+><tr><td>ASTConstructOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>2</td
+><td>1</td
+></tr
+><tr><td>ASTExistsOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>5</td
+><td>1</td
+></tr
+><tr><td>ASTGraphGroupOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>4</td
+><td>1</td
+></tr
+><tr><td>ASTLiftPreFiltersOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>1</td
+><td>1</td
+></tr
+><tr><td>ASTALPServiceOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>4</td
+><td>1</td
+></tr
+><tr><td>ASTBottomUpOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>379</td
+><td>1</td
+></tr
+><tr><td>ASTSimpleOptionalOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>9</td
+><td>1</td
+></tr
+><tr><td>ASTFlattenJoinGroupsOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>2</td
+><td>1</td
+></tr
+><tr><td>ASTServiceNodeOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>3</td
+><td>1</td
+></tr
+><tr><td>LabelServiceExtractOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>16</td
+><td>1</td
+></tr
+><tr><td>ASTJoinGroupOrderOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>199</td
+><td>2</td
+></tr
+><tr><td>ASTRunFirstRunLastOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>6</td
+><td>2</td
+></tr
+><tr><td>ASTRangeOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>3</td
+><td>1</td
+></tr
+><tr><td>ASTRangeCountOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>579</td
+><td>1</td
+></tr
+><tr><td>ASTCardinalityOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>5</td
+><td>1</td
+></tr
+><tr><td>ASTFastRangeCountOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>12</td
+><td>1</td
+></tr
+><tr><td>ASTSimpleGroupByAndCountOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>3</td
+><td>1</td
+></tr
+><tr><td>ASTDistinctTermScanOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>6</td
+><td>1</td
+></tr
+><tr><td>ASTStaticJoinOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>37</td
+><td>1</td
+></tr
+><tr><td>MWApiServicePlacementOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>7</td
+><td>1</td
+></tr
+><tr><td>LabelServicePlacementOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>35</td
+><td>2</td
+></tr
+><tr><td>EmptyLabelServiceOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>48</td
+><td>1</td
+></tr
+><tr><td>ASTAttachJoinFiltersOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>42</td
+><td>1</td
+></tr
+><tr><td>ASTSparql11SubqueryOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>4</td
+><td>1</td
+></tr
+><tr><td>ASTNamedSubqueryOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>2</td
+><td>1</td
+></tr
+><tr><td>ASTSubGroupJoinVarOptimizer</td
+><td>Optimizer</td
+><td>0</td
+><td>4</td
+><td>1</td
+></tr
+><tr><td>RangeCount</td
+><td>Range Count</td
+><td>0</td
+><td>636</td
+><td>3</td
+></tr
+></table
+><h2>Optimized AST</h2
+><pre>
+PREFIX rdf: &lt;http:&#47;&#47;www.w3.org&#47;1999&#47;02&#47;22-rdf-syntax-ns#&gt;
+PREFIX rdfs: &lt;http:&#47;&#47;www.w3.org&#47;2000&#47;01&#47;rdf-schema#&gt;
+PREFIX sesame: &lt;http:&#47;&#47;www.openrdf.org&#47;schema&#47;sesame#&gt;
+PREFIX owl: &lt;http:&#47;&#47;www.w3.org&#47;2002&#47;07&#47;owl#&gt;
+PREFIX xsd: &lt;http:&#47;&#47;www.w3.org&#47;2001&#47;XMLSchema#&gt;
+PREFIX fn: &lt;http:&#47;&#47;www.w3.org&#47;2005&#47;xpath-functions#&gt;
+PREFIX foaf: &lt;http:&#47;&#47;xmlns.com&#47;foaf&#47;0.1&#47;&gt;
+PREFIX dc: &lt;http:&#47;&#47;purl.org&#47;dc&#47;elements&#47;1.1&#47;&gt;
+PREFIX hint: &lt;http:&#47;&#47;www.bigdata.com&#47;queryHints#&gt;
+PREFIX bd: &lt;http:&#47;&#47;www.bigdata.com&#47;rdf#&gt;
+PREFIX bds: &lt;http:&#47;&#47;www.bigdata.com&#47;rdf&#47;search#&gt;
+PREFIX psn: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;statement&#47;value-normalized&#47;&gt;
+PREFIX pqn: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;qualifier&#47;value-normalized&#47;&gt;
+PREFIX prn: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;reference&#47;value-normalized&#47;&gt;
+PREFIX mwapi: &lt;https:&#47;&#47;www.mediawiki.org&#47;ontology#API&#47;&gt;
+PREFIX gas: &lt;http:&#47;&#47;www.bigdata.com&#47;rdf&#47;gas#&gt;
+PREFIX wdt: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;&gt;
+PREFIX wdtn: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct-normalized&#47;&gt;
+PREFIX psv: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;statement&#47;value&#47;&gt;
+PREFIX ps: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;statement&#47;&gt;
+PREFIX pqv: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;qualifier&#47;value&#47;&gt;
+PREFIX pq: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;qualifier&#47;&gt;
+PREFIX prv: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;reference&#47;value&#47;&gt;
+PREFIX pr: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;reference&#47;&gt;
+PREFIX wdno: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;novalue&#47;&gt;
+PREFIX p: &lt;http:&#47;&#47;www.wikidata.org&#47;prop&#47;&gt;
+PREFIX wikibase: &lt;http:&#47;&#47;wikiba.se&#47;ontology#&gt;
+PREFIX wd: &lt;http:&#47;&#47;www.wikidata.org&#47;entity&#47;&gt;
+PREFIX wdata: &lt;http:&#47;&#47;www.wikidata.org&#47;wiki&#47;Special:EntityData&#47;&gt;
+PREFIX wds: &lt;http:&#47;&#47;www.wikidata.org&#47;entity&#47;statement&#47;&gt;
+PREFIX wdv: &lt;http:&#47;&#47;www.wikidata.org&#47;value&#47;&gt;
+PREFIX wdref: &lt;http:&#47;&#47;www.wikidata.org&#47;reference&#47;&gt;
+PREFIX schema: &lt;http:&#47;&#47;schema.org&#47;&gt;
+PREFIX prov: &lt;http:&#47;&#47;www.w3.org&#47;ns&#47;prov#&gt;
+PREFIX skos: &lt;http:&#47;&#47;www.w3.org&#47;2004&#47;02&#47;skos&#47;core#&gt;
+PREFIX geo: &lt;http:&#47;&#47;www.opengis.net&#47;ont&#47;geosparql#&gt;
+PREFIX geof: &lt;http:&#47;&#47;www.opengis.net&#47;def&#47;geosparql&#47;function&#47;&gt;
+PREFIX mediawiki: &lt;https:&#47;&#47;www.mediawiki.org&#47;ontology#&gt;
+PREFIX ontolex: &lt;http:&#47;&#47;www.w3.org&#47;ns&#47;lemon&#47;ontolex#&gt;
+PREFIX dct: &lt;http:&#47;&#47;purl.org&#47;dc&#47;terms&#47;&gt;
+QueryType: SELECT
+includeInferred=true
+timeout=60000
+SELECT ( VarNode(human) AS VarNode(human) ) ( VarNode(humanLabel) AS VarNode(humanLabel) ) ( VarNode(spouse) AS VarNode(spouse) ) ( VarNode(spouseLabel) AS VarNode(spouseLabel) )
+  JoinGroupNode {
+    StatementPatternNode(VarNode(human), ConstantNode(Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(39)), ConstantNode(Vocab(2)[http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q]:XSDUnsignedShort(11696))) [scope=DEFAULT_CONTEXTS]
+      AST2BOpBase.estimatedCardinality=62
+      AST2BOpBase.originalIndex=POS
+    StatementPatternNode(VarNode(human), ConstantNode(Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(31)), ConstantNode(Vocab(2)[http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q]:XSDUnsignedByte(5))) [scope=DEFAULT_CONTEXTS]
+      AST2BOpBase.estimatedCardinality=10334495
+      AST2BOpBase.originalIndex=POS
+    StatementPatternNode(VarNode(spouse), ConstantNode(Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(26)), VarNode(human)) [scope=DEFAULT_CONTEXTS] [optional]
+      AST2BOpBase.estimatedCardinality=747720
+      AST2BOpBase.originalIndex=POS
+    SERVICE &lt;ConstantNode(TermId(0U)[http:&#47;&#47;wikiba.se&#47;ontology#label])&gt; {
+      JoinGroupNode {
+        StatementPatternNode(ConstantNode(TermId(0U)[http:&#47;&#47;www.bigdata.com&#47;rdf#serviceParam]), ConstantNode(TermId(0U)[http:&#47;&#47;wikiba.se&#47;ontology#language]), ConstantNode(TermId(17067L)[en])) [scope=DEFAULT_CONTEXTS]
+        StatementPatternNode(VarNode(human), ConstantNode(Vocab(74)[http:&#47;&#47;www.w3.org&#47;2000&#47;01&#47;rdf-schema#label]), VarNode(humanLabel)) [scope=DEFAULT_CONTEXTS]
+        StatementPatternNode(VarNode(spouse), ConstantNode(Vocab(74)[http:&#47;&#47;www.w3.org&#47;2000&#47;01&#47;rdf-schema#label]), VarNode(spouseLabel)) [scope=DEFAULT_CONTEXTS]
+      }
+    }
+  }
+slice(limit=20)
+
+with static (exogeneous) bindings defined as follows: 
+{
+  {  }
+}
+</pre
+><h2>Query Plan</h2
+><pre>com.bigdata.bop.solutions.SliceOp[10](ProjectionOp[9])[ BOp.bopId=10, SliceOp.offset=0, SliceOp.limit=20, BOp.evaluationContext=CONTROLLER, PipelineOp.pipelined=true, PipelineOp.maxParallel=1, PipelineOp.reorderSolutions=false, PipelineOp.sharedState=true, BOp.timeout=60000, BOp.namespace=wdq, QueryEngine.queryId=a9c0a2ef-7c50-4779-ac5c-473b7f435384, QueryEngine.chunkHandler=com.bigdata.bop.engine.NativeHeapStandloneChunkHandler@308911f2]
+  com.bigdata.bop.solutions.ProjectionOp[9](ServiceCallJoin[7])[ BOp.bopId=9, BOp.evaluationContext=CONTROLLER, PipelineOp.sharedState=true, JoinAnnotations.select=[human, humanLabel, spouse, spouseLabel]]
+    com.bigdata.bop.controller.ServiceCallJoin[7](ChunkedMaterializationOp[8])[ BOp.bopId=7, BOp.evaluationContext=CONTROLLER, PipelineOp.pipelined=false, PipelineOp.sharedState=true, ServiceCallJoin.serviceNode=
+SERVICE &lt;ConstantNode(TermId(0U)[http:&#47;&#47;wikiba.se&#47;ontology#label])&gt; {
+  JoinGroupNode {
+    StatementPatternNode(ConstantNode(TermId(0U)[http:&#47;&#47;www.bigdata.com&#47;rdf#serviceParam]), ConstantNode(TermId(0U)[http:&#47;&#47;wikiba.se&#47;ontology#language]), ConstantNode(TermId(17067L)[en])) [scope=DEFAULT_CONTEXTS]
+    StatementPatternNode(VarNode(human), ConstantNode(Vocab(74)[http:&#47;&#47;www.w3.org&#47;2000&#47;01&#47;rdf-schema#label]), VarNode(humanLabel)) [scope=DEFAULT_CONTEXTS]
+    StatementPatternNode(VarNode(spouse), ConstantNode(Vocab(74)[http:&#47;&#47;www.w3.org&#47;2000&#47;01&#47;rdf-schema#label]), VarNode(spouseLabel)) [scope=DEFAULT_CONTEXTS]
+  }
+}, ServiceCallJoin.namespace=wdq, ServiceCallJoin.timestamp=1670327061096, HashJoinAnnotations.joinVars=[human], JoinAnnotations.constraints=null]
+      com.bigdata.bop.rdf.join.ChunkedMaterializationOp[8](PipelineJoin[6])[ ChunkedMaterializationOp.vars=[human, spouse], IPredicate.relationName=[wdq.lex], IPredicate.timestamp=1670327061096, ChunkedMaterializationOp.materializeAll=false, PipelineOp.sharedState=true, PipelineOp.reorderSolutions=true, PipelineOp.maxParallel=5, BOp.bopId=8]
+        com.bigdata.bop.join.PipelineJoin[6](PipelineJoin[4])[ BOp.bopId=6, JoinAnnotations.constraints=null, AST2BOpBase.simpleJoin=true, BOp.evaluationContext=ANY, AccessPathJoinAnnotations.predicate=com.bigdata.rdf.spo.SPOPredicate[5](spouse=null, Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(26), human=null)[ IPredicate.relationName=[wdq.spo], IPredicate.timestamp=1670327061096, BOp.bopId=5, AST2BOpBase.estimatedCardinality=747720, AST2BOpBase.originalIndex=POS, IPredicate.optional=true, IPredicate.flags=[KEYS,VALS,READONLY,PARALLEL]]]
+          com.bigdata.bop.join.PipelineJoin[4](PipelineJoin[2])[ BOp.bopId=4, JoinAnnotations.constraints=null, AST2BOpBase.simpleJoin=true, BOp.evaluationContext=ANY, AccessPathJoinAnnotations.predicate=com.bigdata.rdf.spo.SPOPredicate[3](human=null, Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(31), Vocab(2)[http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q]:XSDUnsignedByte(5))[ IPredicate.relationName=[wdq.spo], IPredicate.timestamp=1670327061096, BOp.bopId=3, AST2BOpBase.estimatedCardinality=10334495, AST2BOpBase.originalIndex=POS, IPredicate.flags=[KEYS,VALS,READONLY,PARALLEL]]]
+            com.bigdata.bop.join.PipelineJoin[2]()[ BOp.bopId=2, JoinAnnotations.constraints=null, AST2BOpBase.simpleJoin=true, BOp.evaluationContext=ANY, AccessPathJoinAnnotations.predicate=com.bigdata.rdf.spo.SPOPredicate[1](human=null, Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(39), Vocab(2)[http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q]:XSDUnsignedShort(11696))[ IPredicate.relationName=[wdq.spo], IPredicate.timestamp=1670327061096, BOp.bopId=1, AST2BOpBase.estimatedCardinality=62, AST2BOpBase.originalIndex=POS, IPredicate.flags=[KEYS,VALS,READONLY,PARALLEL]]]</pre
+><pre></pre><h2>Query Evaluation Statistics</h2
+><p>solutions=20, chunks=1, subqueries=0, elapsed=102ms.</p
+><table border="1" summary="Query Statistics"
+><tr
+><th>queryId</th><th>deadline</th><th>elapsed</th><th>cause</th><th>evalOrder</th><th>bopSummary</th><th>predSummary</th><th>nvars</th><th>fastRangeCount</th><th>sumMillis</th><th>unitsIn</th><th>unitsOut</th><th>typeErrors</th><th>joinRatio</th></tr
+><tr
+><td>a9c0a2ef-7c50-4779-ac5c-473b7f435384</td
+><td>Tuesday, December 6, 2022 11:45:21 AM UTC</td
+><td>102</td
+><td></td
+><td>total</td
+><td>total</td
+><td></td
+><td></td
+><td></td
+><td>101</td
+><td>236</td
+><td>343</td
+><td>0</td
+><td>1.4533898305084745</td
+></tr
+><tr
+><td>a9c0a2ef-7c50-4779-ac5c-473b7f435384</td
+><td>Tuesday, December 6, 2022 11:45:21 AM UTC</td
+><td>102</td
+><td></td
+><td>0</td
+><td>PipelineJoin[2]</td
+><td>SPOPredicate[1](?human, Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(39), Vocab(2)[http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q]:XSDUnsignedShort(11696))</td
+><td>1</td
+><td>62</td
+><td>1</td
+><td>1</td
+><td>62</td
+><td>0</td
+><td>62.0</td
+></tr
+><tr
+><td>a9c0a2ef-7c50-4779-ac5c-473b7f435384</td
+><td>Tuesday, December 6, 2022 11:45:21 AM UTC</td
+><td>102</td
+><td></td
+><td>1</td
+><td>PipelineJoin[4]</td
+><td>SPOPredicate[3](?human, Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(31), Vocab(2)[http:&#47;&#47;www.wikidata.org&#47;entity&#47;Q]:XSDUnsignedByte(5))</td
+><td>1</td
+><td>10334495</td
+><td>6</td
+><td>62</td
+><td>45</td
+><td>0</td
+><td>0.7258064516129032</td
+></tr
+><tr
+><td>a9c0a2ef-7c50-4779-ac5c-473b7f435384</td
+><td>Tuesday, December 6, 2022 11:45:21 AM UTC</td
+><td>102</td
+><td></td
+><td>2</td
+><td>PipelineJoin[6]</td
+><td>SPOPredicate[5](?spouse, Vocab(6)[http:&#47;&#47;www.wikidata.org&#47;prop&#47;direct&#47;P]:XSDUnsignedByte(26), ?human)</td
+><td>2</td
+><td>747720</td
+><td>5</td
+><td>45</td
+><td>54</td
+><td>0</td
+><td>1.2</td
+></tr
+><tr
+><td>a9c0a2ef-7c50-4779-ac5c-473b7f435384</td
+><td>Tuesday, December 6, 2022 11:45:21 AM UTC</td
+><td>102</td
+><td></td
+><td>3</td
+><td>ChunkedMaterializationOp[8]</td
+><td>vars=[human, spouse],materializeInlineIVs=false</td
+><td></td
+><td></td
+><td>0</td
+><td>54</td
+><td>54</td
+><td>0</td
+><td>1.0</td
+></tr
+><tr
+><td>a9c0a2ef-7c50-4779-ac5c-473b7f435384</td
+><td>Tuesday, December 6, 2022 11:45:21 AM UTC</td
+><td>102</td
+><td></td
+><td>4</td
+><td>ServiceCallJoin[7]</td
+><td></td
+><td></td
+><td></td
+><td>87</td
+><td>0</td
+><td>54</td
+><td>0</td
+><td>N&#47;A</td
+></tr
+><tr
+><td>a9c0a2ef-7c50-4779-ac5c-473b7f435384</td
+><td>Tuesday, December 6, 2022 11:45:21 AM UTC</td
+><td>102</td
+><td></td
+><td>5</td
+><td>ProjectionOp[9]</td
+><td>[human, humanLabel, spouse, spouseLabel]</td
+><td></td
+><td></td
+><td>2</td
+><td>54</td
+><td>54</td
+><td>0</td
+><td>1.0</td
+></tr
+><tr
+><td>a9c0a2ef-7c50-4779-ac5c-473b7f435384</td
+><td>Tuesday, December 6, 2022 11:45:21 AM UTC</td
+><td>102</td
+><td></td
+><td>6</td
+><td>SliceOp[10]</td
+><td>offset=0, limit=20</td
+><td></td
+><td></td
+><td>0</td
+><td>20</td
+><td>20</td
+><td>0</td
+><td>1.0</td
+></tr
+></table
+></html
+>
